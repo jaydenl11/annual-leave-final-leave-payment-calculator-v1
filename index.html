@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Leave & Final Leave Payment Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-size: 2.5rem; margin-bottom: 30px;">Annual Leave Calculator</h1>
+        <!-- Annual Leave Calculator Section -->
+        <div id="step1">
+            <label for="terminationDate">Enter Employee's Termination Date:</label>
+            <input type="date" id="terminationDate" required>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="calculateDaysWorked()" style="flex: 1;">Calculate Days Worked</button>
+            </div>
+        </div>
+        <div id="step3" style="display: none;">
+            <div class="result-row">
+                <p>Total annual leave entitlement (E): <span id="entitlementOutput"></span> days</p>
+            </div>
+            <label for="annualLeaveTaken">Total annual leave taken (T) (days):</label>
+            <input type="number" id="annualLeaveTaken" placeholder="Enter total leave taken" step="0.5" min="0" required>
+            <label for="carryForward">Total carry forward from previous year (C) (days):</label>
+            <input type="number" id="carryForward" placeholder="Enter carry forward days" step="0.5" min="0" required>
+            <label>Did you use any carried-over leave before 1 April 2025?</label>
+            <div style="display: flex; gap: 10px; margin: 5px 0 15px;">
+                <button id="usedCarryYesBtn" type="button" style="flex: 1; background-color: #4CAF50; color: white;">Yes</button>
+                <button id="usedCarryNoBtn" type="button" style="flex: 1; background-color: #f44336; color: white;">No</button>
+            </div>
+            <div id="carriedUsedDiv" style="display: none;">
+                <label for="daysUsedBeforeApr">Days used before 1 April 2025:</label>
+                <input type="number" id="daysUsedBeforeApr" placeholder="Enter days used" step="0.5" min="0">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="setPreviousStep('step1')" style="flex: 1;">Back</button>
+                <button onclick="calculateOutstandingLeave()" style="flex: 1;">Calculate Outstanding Leave</button>
+            </div>
+        </div>
+        <div class="result" id="result" style="display: none;">
+            <h3>Outstanding Annual Leave Calculation</h3>
+            <hr>
+            <p><strong>Entitlement (E):</strong> <span id="entitlementResult"></span> days</p>
+            <p><strong>Minus Taken (T):</strong> <span id="takenResult"></span> days</p>
+            <p><strong>Plus Carry Forward (C):</strong> <span id="carryForwardResult"></span> days</p>
+            <p><strong>Minus Used Before 1 Apr:</strong> <span id="usedBeforeResult"></span> days</p>
+            <hr>
+            <p><strong>Total Outstanding:</strong> <span id="outstandingResult"></span> days</p>
+            <div class="button-group">
+                <button onclick="setPreviousStep('step3')" style="flex: 1;">Back</button>
+                <button onclick="resetToStep1()" style="flex: 1;">Reset</button>
+            </div>
+        </div>
+    </div>
+    <!-- Final Leave Payment Calculator Section -->
+    <div class="container">
+      <h1 style="font-size: 2.5rem; margin-bottom: 30px; text-align: center;">Final Leave Payment Calculator</h1>
+      <label for="basicSalary">Basic Salary:</label>
+      <input type="number" id="basicSalary" placeholder="Enter basic salary" required>
+      <div id="voluntaryMPFOptIn" style="margin: 20px 0;">
+        <label>Would the employee like to make a voluntary MPF contribution?</label><br>
+        <div style="display: flex; gap: 10px; margin: 5px 0 15px;">
+          <button id="voluntaryYesBtn" type="button" class="voluntary-btn" style="flex: 1;">Yes</button>
+          <button id="voluntaryNoBtn" type="button" class="voluntary-btn" style="flex: 1;">No</button>
+        </div>
+      </div>
+      <div id="paymentRows"></div>
+      <button onclick="addPaymentRow()">Add Row</button>
+      <button onclick="calculateFinalLeavePayment()">Calculate Final Leave Payment</button>
+      <div id="finalLeaveResult" style="display:none; margin-top:30px;"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
